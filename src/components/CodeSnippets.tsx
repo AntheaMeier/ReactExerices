@@ -31,18 +31,18 @@ interface MyTextfield7Props {
   export {MyTextfield7}
 
 
- /*  ------------------------ MTf6 -----------------------------------------
+ /*  ------------------------ MTf2 -----------------------------------------
 
-  That worked with UserInput Aarry: */
+  That worked with UserInput Array: */
 
 
 
-interface MyTextfield6Props {
+interface MyTextfield2Props {
   
     updateFn: (arg: string) => void
   }
   
-  function MyTextfield6({updateFn}: MyTextfield6Props) {
+  function MyTextfield2({updateFn}: MyTextfield2Props) {
     const [textValue, setTextValue] = useState('');
     return (
       <div>
@@ -53,120 +53,6 @@ interface MyTextfield6Props {
             onChange={(event)=>{
               setTextValue(event.target.value)
               updateFn(event.target.value)
-              console.log(event.target.value)
-            }}
-        />
-      </div>
-    );
-  }
-
-  export {MyTextfield6}
-
- /*  --------------------------- MTf5 -------------------------------------
-
-  that worked as well but without UI Array */
-
-
-  interface MyTextfield5Props {
-  
-    updateFn: (arg: string) => void
-  }
-  
-  function MyTextfield5({updateFn}: MyTextfield5Props) {
-    const [textValue, setTextValue] = useState('');
-    return (
-      <div>
-        <input 
-            type="text" 
-            value={textValue}
-            placeholder="type something"
-            onChange={(event)=>{
-              setTextValue(event.target.value)
-              console.log(event.target.value)
-            }}
-        />
-      </div>
-    );
-  }
-
-  export {MyTextfield5}
-
-   /*  ----------------------------- MTf4 -----------------------------------
-
-  works - maybe the same as above just with value in the interface */
-
-  interface MyTextfield4Props {
-    value: string, 
-    updateFn: (arg: string) => void
-  }
-  
-  function MyTextfield4({value, updateFn}: MyTextfield4Props) {
-    const [textValue, setTextValue] = useState('');
-    return (
-      <div>
-        <input 
-            type="text" 
-            value={textValue}
-            placeholder="type something"
-            onChange={(event)=>{
-              setTextValue(event.target.value)
-              console.log(event.target.value)
-            }}
-        />
-      </div>
-    );
-  }
-
-  export {MyTextfield4}
-
-     /*  ------------------------------ MTf3 ----------------------------------
-
-  doesn work, cant type into the textfield and cant delete
-  but the console shows event */
-
-  interface MyTextfield3Props {
-    value: string, 
-    updateFn: (arg: string) => void
-  }
-  
-  function MyTextfield3({value, updateFn}: MyTextfield3Props) {
-  const [textValue, setTextValue] = useState('');
-    return (
-      <div>
-        <input 
-            type="text" 
-            value={textValue}
-            placeholder="type something"
-            onChange={(event)=>{
-              updateFn(event.target.value)
-              console.log(event.target.value)
-            }}
-        />
-      </div>
-    );
-  }
-
-  export {MyTextfield3}
-
-  /*  ------------------------------- MTf2 ---------------------------------
-
-  seems to work, have to check wheter its differnet to MTf6 */
-
-  interface MyTextfield2Props {
-    value: string, 
-    updateFn: (arg: string) => void
-  }
-  
-  function MyTextfield2({value, updateFn}: MyTextfield2Props) {
-    /* const [textValue, setTextValue] = useState('');    is not needed here*/
-    return (
-      <div>
-        <input 
-            type="text" 
-            value={value}
-            placeholder="type something"
-            onChange={(event)=>{
-              updateFn(event.target.value) // in App.tsx a seperate function called updateUserInputs
               console.log(event.target.value)
             }}
         />
@@ -176,28 +62,32 @@ interface MyTextfield6Props {
 
   export {MyTextfield2}
 
+ 
+
   /*  ------------------------------- MTf1 ---------------------------------
 
-  seems to work as it works as it did without our addjustments on Wednesday,
-  Attention: in App.tsx have the line 190 und instead of Array function have 
-  alternative props for value and updateFn */
+  works as it did without our addjustments on Wednesday,
+  Attention: in App.tsx have the "const [input, setInput]" hook instead of an
+  Array function to show on the console
+  
+  differnce to MTf2, it has the hook in the App.tsx, so the MTf1 works without 
+  "const [textValue, setTextValue]" and has the "const [input, setInput]" in the App.tsx
+  hence MTf2 has a line more in the onChange function but a prop less in the interface */
 
   interface MyTextfield1Props {
-    value: string, 
-    updateFn: (arg: string) => void
+    valueProp: string, 
+    updateFnProp: (arg: string) => void
   }
   
-  function MyTextfield1({value, updateFn}: MyTextfield1Props) {
-    /* const [input, setInput] = useState('');  already in the app.tsx*/
+  function MyTextfield1({valueProp, updateFnProp}: MyTextfield1Props) {
 
     return (
       <div>
         <input 
             type="text" 
-            value={value}
-            placeholder="type something"
+            value={valueProp}
             onChange={(event)=>{
-              updateFn(event.target.value)
+              updateFnProp(event.target.value)
               console.log(event.target.value)
             }}
         />

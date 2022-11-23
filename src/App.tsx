@@ -4,30 +4,44 @@ import './App.css';
 import {useState} from 'react';
 import {Header} from './stories/Header';
 import {Button} from './stories/Button';
-import {MyTextfield} from './components/MyTextfield';
+import {TaskCreator} from './components/TaskCreator';
+import {MyTextfield1} from './components/MyTextfield1';
+import {MyTextfield2} from './components/MyTextfield2';
 import {MyCountClicksButton} from './components/MyCountClicksButton';
 import {MyAddButton} from './components/MyAddButton';
 
 
 function App() {
 
-  const [userInputs, setUserInputs] = useState<string[]>([]);
+  /* for MTf1 instead of line 18-25: */
+  const [input, setInput] = useState(''); 
 
-  function updateUserInputs(userInput: string){
-    const userInputsCopy=[...userInputs]
-    userInputsCopy.push(userInput)
-    setUserInputs(userInputsCopy)
+  /* for MTf2 instead of l.15 or l.21*/
+  const [userInputs, setUserInputs] = useState<string[]>([]); // a useState hook, collecting inputs in an array (AA)
+
+  function updateUserInputs(userInput: string){  // my function updateUserInputs receives a parameter in form of a string value
+    const userInputsCopy=[...userInputs]        // declartion of an Array (AA-Copy) containing the content of AA
+    userInputsCopy.push(userInput)        // AA-Copy extended by the functions parameter
+    setUserInputs(userInputsCopy)         // the useState hook methods exchanging AA with the extended AA-Copy
   }
-  console.log('userInputs:', userInputs)
-
-  /* for MTf1 instead of line 14-21:
-  const [input, setInput] = useState(''); */
+  /* next line only for MTf2*/
+    console.log('userInputs:', userInputs)   // shows the new AA, which got extended by the copy
 
   return (
   
     <div className="App"> {/* its centred */}
       <h1>Own Components</h1>
       <header className="App-header"> {/* white text on blue background */}
+
+      <h2>
+        joined Component: TaskCreator 
+      </h2>
+      <p>
+        This component combines MyTextField and MyAddButton <br/>
+      </p>
+
+      <TaskCreator   
+      />
 
       <h2>
         1. Component: MyTextField
@@ -38,16 +52,20 @@ function App() {
         entered using an onChange function within its <b>updateFn</b> prop <br/>
         and the typed in input for its <b>value</b> prop.
       </p>
-        <MyTextfield
-          /* value={textValue}   stays off, was a step in between MTf1-6*/
 
+      <MyTextfield1 // works with a hook
+          valueProp={input}
+          updateFnProp={setInput} 
+      />
+      <span>Textfield1 using a hook</span>
+
+      <MyTextfield2 // works with a function based on a hook
           updateFn={updateUserInputs} 
-
-          /* for MTf1:
-          value={input}
-          updateFn={setInput}  */
-        />
-        {/* <h3>You have typed {onClick={setInput}} into the textfield above.</h3> */}
+      />
+      <span>Textfield2 using a function based a hook</span>
+        
+        {/* first attempt with Maja to connect first 2 components
+        <h3>You have typed {onClick={setInput}} into the textfield above.</h3> */}
         <div style={{border:'1px solid black'}}></div>
 
       <h2>
