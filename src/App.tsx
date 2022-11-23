@@ -17,12 +17,12 @@ function App() {
   const [input, setInput] = useState(''); 
 
   /* for MTf2 instead of l.15 or l.21*/
-  const [userInputs, setUserInputs] = useState<string[]>([]); // a useState hook, collecting inputs in an array (AA)
+  const [userInputs, setUserInputs] = useState<string[]>([]); // a useState hook, collecting inputs in an array (uiA)
 
   function updateUserInputs(userInput: string){  // my function updateUserInputs receives a parameter in form of a string value
-    const userInputsCopy=[...userInputs]        // declartion of an Array (AA-Copy) containing the content of AA
-    userInputsCopy.push(userInput)        // AA-Copy extended by the functions parameter
-    setUserInputs(userInputsCopy)         // the useState hook methods exchanging AA with the extended AA-Copy
+    const userInputsCopy=[...userInputs]        // declartion of an Array (uiA-Copy) containing the content of uiA
+    userInputsCopy.push(userInput)        // uiA-Copy extended by the functions parameter containing the currrent input
+    setUserInputs(userInputsCopy)         // exchanging the former uiA with the extended uiA-Copy
   }
   /* next line only for MTf2*/
     console.log('userInputs:', userInputs)   // shows the new AA, which got extended by the copy
@@ -41,7 +41,16 @@ function App() {
       </p>
 
       <TaskCreator   
+          label='Click to show the value of left textfield below!'
+          onClick={updateUserInputs}
       />
+
+      {/* first attempt with Maja to connect first 2 components
+        <h3>You have typed {onClick={user}} into the textfield above.</h3> */}
+        <ul style={{border:'1px solid black'}}>{userInputs.map((text)=> <li>{text}</li>)}</ul>
+
+      
+
 
       <h2>
         1. Component: MyTextField
@@ -60,13 +69,10 @@ function App() {
       <span>Textfield1 using a hook</span>
 
       <MyTextfield2 // works with a function based on a hook
-          updateFn={updateUserInputs} 
+          updateFnProp={updateUserInputs} 
       />
       <span>Textfield2 using a function based a hook</span>
         
-        {/* first attempt with Maja to connect first 2 components
-        <h3>You have typed {onClick={setInput}} into the textfield above.</h3> */}
-        <div style={{border:'1px solid black'}}></div>
 
       <h2>
         2. Component: MyAddButton
