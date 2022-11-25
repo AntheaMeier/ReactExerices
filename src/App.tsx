@@ -1,14 +1,13 @@
 import { getValue } from '@testing-library/user-event/dist/utils';
 import React from 'react';
 import './App.css';
-import {useState} from 'react';
-import {Header} from './stories/Header';
-import {Button} from './stories/Button';
-import {TaskCreator} from './components/TaskCreator';
-import {MyTextfield1} from './components/MyTextfield1';
-import {MyTextfield2} from './components/MyTextfield2';
-import {MyCountClicksButton} from './components/MyCountClicksButton';
-import {MyAddButton} from './components/MyAddButton';
+import { useState } from 'react';
+import { TaskCreator } from './components/TaskCreator';
+import { MyTextfield1 } from './components/MyTextfield1';
+import { MyTextfield2 } from './components/MyTextfield2';
+import { MyCountClicksButton } from './components/MyCountClicksButton';
+import { MyAddButton } from './components/MyAddButton';
+import { MyCheckbox } from './components/MyCheckbox';
 
 
 function App() {
@@ -16,7 +15,7 @@ function App() {
   /* for MTf1 instead of line 18-25: */
   const [input, setInput] = useState(''); 
 
-  /* for MTf2 instead of l.15 or l.21*/
+  /* for MTf2 and TaskCreator*/
   const [userInputs, setUserInputs] = useState<string[]>([]); // a useState hook, collecting inputs in an array (uiA)
 
   function updateUserInputs(userInput: string){  // my function updateUserInputs receives a parameter in form of a string value
@@ -34,23 +33,52 @@ function App() {
       <header className="App-header"> {/* white text on blue background */}
 
       <h2>
-        joined Component: TaskCreator 
+        TaskCreator (a joined Component)
       </h2>
       <p>
-        This component combines MyTextField and MyAddButton <br/>
+        This component combines so far: <br/>
+        MyTextField and MyAddButton <br/>
       </p>
 
       <TaskCreator   
-          label='Click to show the value of left textfield below!'
-          onClick={updateUserInputs}
+          label='add it to the Checklist'
+          onClick={updateUserInputs} //extends the userInput array with the latest input
       />
+        <h2>
+        My Checklist 
+        </h2>
+        <ul style={{border:'2px solid white', 
+                    color: 'white',
+                    textAlign:'left', 
+                    listStyleType: 'none', 
+                    margin: '0',
+                    padding: '5%'}}
+          
 
-      {/* first attempt with Maja to connect first 2 components
-        <h3>You have typed {onClick={user}} into the textfield above.</h3> */}
-        <ul style={{border:'1px solid black'}}>{userInputs.map((text)=> <li>{text}</li>)}</ul>
-
+              >{userInputs.map((eachArrayElement)=> 
+              <li> 
+                <label>
+                   <input
+                      type="checkbox"/>
+                      {eachArrayElement}
+                </label> 
+              </li>)}
+        </ul>
+        
+       
+      {/* next Wednesday:
+      - Github Repo
+      change the Userinput Array into a task Array, each Elemnt ist not just a string,
+      but has a text(string) and a state(checked or unchecked)
       
+      the aim is that we change the style of the checked list items, eg. crossed out or being brighter
+      and we will need a onChange Prop, which changes the checked prop*/}
+      
+     <div style={{paddingTop:'100px'}}>
 
+      <h1>
+        Single Components
+      </h1>
 
       <h2>
         1. Component: MyTextField
@@ -90,12 +118,6 @@ function App() {
         />
     
 
-
-
-
-
-  <div style={{paddingTop:'100px'}}>
-
       <h2>
         3. Component: MyCountClicksButton
       </h2>
@@ -104,15 +126,18 @@ function App() {
         This component is based on a simple button element, which displays <br/>
         the total amount of clicks when clicking on it.
       </p>
-
-        {/* <MyCountClicksButton>Click me to display the added value!</MyCountClicksButton> */}
-        
         <MyCountClicksButton/>
-  </div>
-        
-      </header> 
-    </div> 
-  );
+
+        <h2>
+        4. Component: MyCheckbox
+      </h2>
+        <MyCheckbox/>
+     
+     
+     </div> {/* space before the single components */}    
+    </header> 
+   </div> 
+ );
 }
 
 

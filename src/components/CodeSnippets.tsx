@@ -1,36 +1,5 @@
 import {useState} from 'react';
 
-
- /*  --------------------------- MTf7 --------------------------------------
-
-  this didn't work, already starting to change it into TaskCreator */
-
-interface MyTextfield7Props {
-  
-    updateFn: (arg: string) => void
-  }
-  
-  function MyTextfield7({updateFn}: MyTextfield7Props) {
-    /* const [textValue, setTextValue] = useState('');   go to TaskCreator */
-    return (
-      <div>
-        <input 
-            type="text" 
-            value={textValue}
-            placeholder="type something"
-            onChange={(event)=>{
-              setTextValue(event.target.value)
-              updateFn(event.target.value)
-              console.log(event.target.value)
-            }}
-        />
-      </div>
-    );
-  }
-
-  export {MyTextfield7}
-
-
  /*  ------------------------ MTf2 -----------------------------------------
 
   That worked with UserInput Array: */

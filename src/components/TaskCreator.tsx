@@ -17,6 +17,7 @@ const [textValue, setTextValue] = useState(''); //needed for the textfield
       <input 
           type="text" 
           value={textValue}
+          placeholder='enter a new task'
           onChange={(event)=>{ // event is a listener activated by onChange, creates a call back function
             setTextValue(event.target.value) // target is the current input
             console.log(event.target.value)
