@@ -1,32 +1,35 @@
 import {useState} from 'react';
+import { MyAddButton } from './MyAddButton';
 import { MyTextfield1 } from './MyTextfield1';
 
+
+
 interface TaskCreatorProps {
-  /* valueProp: string, 
-  updateFnProp: (arg: string) => void */
-  // both props are taken out as useState hook is inside the component's function
-  label: string, 
-  onClick: (arg: string) => void,
+  onClick: (arg: string) => void
   }
 
   
-function TaskCreator({ label, onClick}: TaskCreatorProps) {
-const [textValue, setTextValue] = useState(''); //needed for the textfield
+function TaskCreator({ /* label,*/ onClick}: TaskCreatorProps) {
+const [symbol_inTC, storeSymbols_inTC] = useState(''); //needed for the textfield
+
 
   return (
-    <div>
+    <div
+    style={{display:'inline-flex'}}
+    >
       <MyTextfield1 
-        updateFnProp={setTextValue} 
-        valueProp={textValue}      />
+        valueProp={symbol_inTC}
+        updateFnProp={storeSymbols_inTC} 
+        />
     
-      <span>
-      <button
-        onClick = {() => onClick(textValue)} // here a traget would be the button, which has no value(input) beside the lable text
-        >{label}
-        </button>
-      </span>
-        
-        
+
+      <MyAddButton 
+        label='add it to the Checklist'
+        onClick = {() =>  onClick(symbol_inTC)} //extends the userInput array with the latest input
+        />
+
+
+      
       
       </div>
     );

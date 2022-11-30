@@ -12,10 +12,10 @@ import { MyCheckbox } from './components/MyCheckbox';
 
 function App() {
 
-  /* for MTf1 instead of line 18-25: */
-  const [input, setInput] = useState(''); 
+  /* for showing the single component MTf1 instead of line 18-25: */
+  const [symbol_inApp, storeSymbols_inApp] = useState(''); 
 
-  /* for MTf2 and TaskCreator*/
+  /* for the TaskCreator plus the creation of MyChecklist by button click and for showing the single component MTf2*/
   const [userInputs, setUserInputs] = useState<string[]>([]); // a useState hook, collecting inputs in an array (uiA)
 
   function updateUserInputs(userInput: string){  // my function updateUserInputs receives a parameter in form of a string value
@@ -40,10 +40,10 @@ function App() {
         MyTextField and MyAddButton <br/>
       </p>
 
-      <TaskCreator   
-          label='add it to the Checklist'
-          onClick={updateUserInputs} //extends the userInput array with the latest input
-      />
+      <TaskCreator 
+          onClick={updateUserInputs}      
+          />
+
         <h2>
         My Checklist 
         </h2>
@@ -91,8 +91,8 @@ function App() {
       </p>
 
       <MyTextfield1 // works with a hook
-          valueProp={input}
-          updateFnProp={setInput} 
+          valueProp={symbol_inApp}
+          updateFnProp={storeSymbols_inApp} 
       />
       <span>Textfield1 using a hook</span>
 
