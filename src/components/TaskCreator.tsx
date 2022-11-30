@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import { MyTextfield1 } from './MyTextfield1';
 
 interface TaskCreatorProps {
   /* valueProp: string, 
@@ -14,26 +15,18 @@ const [textValue, setTextValue] = useState(''); //needed for the textfield
 
   return (
     <div>
-      <input 
-          type="text" 
-          value={textValue}
-          placeholder='enter a new task'
-          onChange={(event)=>{ // event is a listener activated by onChange, creates a call back function
-            setTextValue(event.target.value) // target is the current input
-            console.log(event.target.value)
-          }}
-      />
+      <MyTextfield1 
+        updateFnProp={setTextValue} 
+        valueProp={textValue}      />
     
+      <span>
       <button
         onClick = {() => onClick(textValue)} // here a traget would be the button, which has no value(input) beside the lable text
         >{label}
         </button>
+      </span>
         
         
-        {/*target would be the button
-        onClick={(event)=>{
-          (event.target.value)  
-        }}*/}
       
       </div>
     );
