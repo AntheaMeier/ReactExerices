@@ -5,7 +5,8 @@ import { MyTextfield1 } from './MyTextfield1';
 
 
 interface TaskCreatorProps {
-  onClick: (arg: string) => void
+  /* onClick: (arg: string) => void */
+  onClick: (arg: {}) => []
   }
 
   

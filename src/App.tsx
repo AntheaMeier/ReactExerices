@@ -8,6 +8,7 @@ import { MyTextfield2 } from './components/MyTextfield2';
 import { MyCountClicksButton } from './components/MyCountClicksButton';
 import { MyAddButton } from './components/MyAddButton';
 import { MyCheckbox } from './components/MyCheckbox';
+import { string } from 'prop-types';
 
 
 function App() {
@@ -26,6 +27,43 @@ function App() {
   /* next line only for MTf2*/
     console.log('userInputs:', userInputs)   // shows the new AA, which got extended by the copy
 
+
+  /*  for creating an arry full of task objects containing a string and a boolean*/
+  const [checked, setChecked] = useState<boolean>(false); // a useState hook, to determine whether a task is checked or unchecked
+
+
+  /* for creating an arry full of task objects containing a string and a boolean */
+  
+
+  //interface to be used in thge hook below
+  type task = {
+    checked: boolean;
+    inputs: string;
+  };
+
+  const [tasks, setTasks] = useState<task[]>([]);
+  
+  /* const [tasks, setTasks] = useState<{input: string, checked: boolean }[]>([]); */ // a useState hook, collecting inputs in an array (uiA)
+  
+  // that was for the pure string array: const [userInputs, setUserInputs] = useState<string[]>([]);
+  
+  function createTask(checked, input ){ 
+    const task= {checked: false, input: ''} 
+    /* return task;    - why not? */              
+  }
+
+  // next Wednesday: Create a new task! And then write the updateTask function
+
+
+
+  // needs to be fixing:
+  function updateTasks(task:{input: string, checked: boolean}){ 
+    const tasksCopy=[...tasks]        
+    tasksCopy.push(task)        
+    setTasks(tasksCopy)         
+  }
+  console.log('tasks:', tasks)
+    
   return (
   
     <div className="App"> {/* its centred */}
@@ -41,7 +79,8 @@ function App() {
       </p>
 
       <TaskCreator 
-          onClick={updateUserInputs}      
+          /* onClick={updateUserInputs}  */ 
+          onClick={updateTasks}     
           />
 
         <h2>
@@ -58,16 +97,15 @@ function App() {
               >{userInputs.map((eachArrayElement)=> 
               <li> 
                 <label>
-                   <input
-                      type="checkbox"/>
-                      {eachArrayElement}
+                  <MyCheckbox/>
+                  {eachArrayElement}
                 </label> 
               </li>)}
         </ul>
         
        
-      {/* next Wednesday:
-      - Github Repo
+      {/* Aim:
+  
       change the Userinput Array into a task Array, each Elemnt ist not just a string,
       but has a text(string) and a state(checked or unchecked)
       
