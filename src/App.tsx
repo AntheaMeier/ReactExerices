@@ -16,54 +16,46 @@ function App() {
   /* for showing the single component MTf1 instead of line 18-25: */
   const [symbol_inApp, storeSymbols_inApp] = useState(''); 
 
-  /* for the TaskCreator plus the creation of MyChecklist by button click and for showing the single component MTf2*/
-  const [userInputs, setUserInputs] = useState<string[]>([]); // a useState hook, collecting inputs in an array (uiA)
+  /* a useState hook, collecting inputs in an array (uiA) and for showing the single component MTf2*/
+  const [userInputs, setUserInputs] = useState<string[]>([]); 
 
   function updateUserInputs(userInput: string){  // my function updateUserInputs receives a parameter in form of a string value
     const userInputsCopy=[...userInputs]        // declartion of an Array (uiA-Copy) containing the content of uiA
     userInputsCopy.push(userInput)        // uiA-Copy extended by the functions parameter containing the currrent input
     setUserInputs(userInputsCopy)         // exchanging the former uiA with the extended uiA-Copy
   }
-  /* next line only for MTf2*/
-    console.log('userInputs:', userInputs)   // shows the new AA, which got extended by the copy
+   /*  console.log('userInputs:', userInputs)  */  // shows the new AA, which got extended by the copy
 
 
-  /*  for creating an arry full of task objects containing a string and a boolean*/
-  const [checked, setChecked] = useState<boolean>(false); // a useState hook, to determine whether a task is checked or unchecked
+
+  /* anonymous without interface or type 
+  const [tasks, setTasks] = useState<{input: string, checked: boolean }[]>([]); 
+  function createTask(task: {checked: boolean, inputs: string}){
+    return task;
+  } */
 
 
-  /* for creating an arry full of task objects containing a string and a boolean */
-  
-
-  //interface to be used in thge hook below
-  type task = {
+  /* for creating an array full of task objects containing a string and a boolean */
+  //interface or type to be used in the hook below
+  type Task = {
     checked: boolean;
     inputs: string;
   };
 
-  const [tasks, setTasks] = useState<task[]>([]);
-  
-  /* const [tasks, setTasks] = useState<{input: string, checked: boolean }[]>([]); */ // a useState hook, collecting inputs in an array (uiA)
-  
-  // that was for the pure string array: const [userInputs, setUserInputs] = useState<string[]>([]);
-  
-  function createTask(checked, input ){ 
-    const task= {checked: false, input: ''} 
-    /* return task;    - why not? */              
+  function createTask(task: Task){
+    return task;
   }
 
-  // next Wednesday: Create a new task! And then write the updateTask function
-
-
-
-  // needs to be fixing:
-  function updateTasks(task:{input: string, checked: boolean}){ 
-    const tasksCopy=[...tasks]        
-    tasksCopy.push(task)        
-    setTasks(tasksCopy)         
+  const [taskList, setTaskList] = useState<Task[]>([]);
+  
+  function updateTaskList(newTask: Task){ 
+    const newTaskList=[...taskList]     // creating a copy of taskList[]     
+    newTaskList.push(newTask)           // adding the new taks into this copy
+    setTaskList(newTaskList)            //putting the values of this extended copy into the original task list
   }
-  console.log('tasks:', tasks)
-    
+  console.log('Updated task list:', taskList)
+  
+
   return (
   
     <div className="App"> {/* its centred */}
@@ -80,7 +72,7 @@ function App() {
 
       <TaskCreator 
           /* onClick={updateUserInputs}  */ 
-          onClick={updateTasks}     
+          onClick={updateTaskList}     
           />
 
         <h2>
@@ -94,8 +86,8 @@ function App() {
                     padding: '5%'}}
           
 
-              >{userInputs.map((eachArrayElement)=> 
-              <li> 
+              >{taskList.map((eachArrayElement, index)=> 
+              <li key={index}> 
                 <label>
                   <MyCheckbox/>
                   {eachArrayElement}

@@ -3,6 +3,7 @@ function MyCheckbox(MyCheckboxProps: any) {
   return (
       <input
       type="checkbox"
+      
        />  
     );
   }
