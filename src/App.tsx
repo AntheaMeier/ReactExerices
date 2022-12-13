@@ -1,17 +1,22 @@
 import { useState } from 'react';
 import './App.css';
 import { TaskCreator } from './components/TaskCreator';
-import { MyTextfield1 } from './components/MyTextfield1';
+import { MyTextfield } from './components/MyTextfield';
 import { MyTextfield2 } from './components/MyTextfield2';
 import { MyCountClicksButton } from './components/MyCountClicksButton';
 import { MyAddButton } from './components/MyAddButton';
 import { MyCheckbox } from './components/MyCheckbox';
 
+//interface to be used in the hook for the taskList with objects Array
+export interface Task {
+  checked: boolean;
+  inputs: string;
+};
 
 function App() {
 
-  /* for showing the single component MTf1 instead of line 18-25: */
-  const [symbol_inApp, storeSymbols_inApp] = useState(''); 
+  /* for showing the single component MTf instead of line 18-25: */
+  const [taskTextValue_inApp, storeTaskTextValue_inApp] = useState(''); 
 
   /* a useState hook, collecting inputs in an array (uiA) and for showing the single component MTf2*/
   const [userInputs, setUserInputs] = useState<string[]>([]); 
@@ -34,11 +39,7 @@ function App() {
 
   /* -----------------------------------------------------------------------------
   for creating an array full of task objects containing a string and a boolean */
-  //interface or type to be used in the hook below
-  type Task = {
-    checked: boolean;
-    inputs: string;
-  };
+  
 
   function createTask(task: Task){
     return task;
@@ -47,6 +48,7 @@ function App() {
   const [taskList, setTaskList] = useState<Task[]>([]);
   
   function updateTaskList(newTask: Task){ 
+    console.log('Updated task arguments:',arguments)
     const newTaskList=[...taskList]     // creating a copy of taskList[]     
     newTaskList.push(newTask)           // adding the new taks into this copy
     setTaskList(newTaskList)            //putting the values of this extended copy into the original task list
@@ -88,7 +90,7 @@ function App() {
               <li key={index}> 
                 <label>
                   <MyCheckbox/>
-                  {eachArrayElement}
+                  {eachArrayElement.inputs}
                 </label> 
               </li>)}
         </ul>
@@ -118,11 +120,11 @@ function App() {
         and the typed in input for its <b>value</b> prop.
       </p>
 
-      <MyTextfield1 // works with a hook
-          valueProp={symbol_inApp}
-          updateFnProp={storeSymbols_inApp} 
+      <MyTextfield // works with a hook
+          valueProp={taskTextValue_inApp}
+          updateFnProp={storeTaskTextValue_inApp} 
       />
-      <span>Textfield1 using a hook</span>
+      <span>Textfield using a hook</span>
 
       <MyTextfield2 // works with a function based on a hook
           updateFnProp={updateUserInputs} 
@@ -142,7 +144,7 @@ function App() {
  
         <MyAddButton
           label='Click to display value of the first component!'
-          onClick={() => undefined}
+          clickHandler={() => undefined}
         />
     
 
@@ -171,3 +173,4 @@ function App() {
 
 
 export default App;
+
