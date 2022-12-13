@@ -1,14 +1,11 @@
-import { getValue } from '@testing-library/user-event/dist/utils';
-import React from 'react';
-import './App.css';
 import { useState } from 'react';
+import './App.css';
 import { TaskCreator } from './components/TaskCreator';
 import { MyTextfield1 } from './components/MyTextfield1';
 import { MyTextfield2 } from './components/MyTextfield2';
 import { MyCountClicksButton } from './components/MyCountClicksButton';
 import { MyAddButton } from './components/MyAddButton';
 import { MyCheckbox } from './components/MyCheckbox';
-import { string } from 'prop-types';
 
 
 function App() {
@@ -35,7 +32,8 @@ function App() {
   } */
 
 
-  /* for creating an array full of task objects containing a string and a boolean */
+  /* -----------------------------------------------------------------------------
+  for creating an array full of task objects containing a string and a boolean */
   //interface or type to be used in the hook below
   type Task = {
     checked: boolean;
