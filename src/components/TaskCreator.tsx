@@ -5,11 +5,14 @@ import { MyTextfield1 } from './MyTextfield1';
 
 
 interface TaskCreatorProps {
-  onClick: (arg: string) => void
+  /* onClick: (arg: string) => void */
+  /* onClick: (arg: {}) => [] */
+  /* onClick: (arg: {}) => JSX.Element */
+  onClick: (argA: string, argB: boolean) => JSX.Element
   }
 
   
-function TaskCreator({ /* label,*/ onClick}: TaskCreatorProps) {
+function TaskCreator({ onClick}: TaskCreatorProps) {
 const [symbol_inTC, storeSymbols_inTC] = useState(''); //needed for the textfield
 
 
@@ -25,7 +28,7 @@ const [symbol_inTC, storeSymbols_inTC] = useState(''); //needed for the textfiel
 
       <MyAddButton 
         label='add it to the Checklist'
-        onClick = {() =>  onClick(symbol_inTC)} //extends the userInput array with the latest input
+        onClick = {() =>  onClick(symbol_inTC, false)} //extends the userInput array with the latest input
         />
 
 
