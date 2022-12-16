@@ -7,6 +7,9 @@ import { MyCountClicksButton } from './components/MyCountClicksButton';
 import { MyAddButton } from './components/MyAddButton';
 import { MyCheckbox } from './components/MyCheckbox';
 
+
+// test to push via git
+
 //interface to be used in the hook for the taskList with objects Array
 export interface Task {
   checked: boolean;
