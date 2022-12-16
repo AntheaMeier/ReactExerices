@@ -8,7 +8,7 @@ import { MyAddButton } from './components/MyAddButton';
 import { MyCheckbox } from './components/MyCheckbox';
 
 
-// test to push via git
+//my_checkbox branch
 
 //interface to be used in the hook for the taskList with objects Array
 export interface Task {
@@ -44,19 +44,25 @@ function App() {
   for creating an array full of task objects containing a string and a boolean */
   
 
-  function createTask(task: Task){
+  /* function createTask(task: Task){
     return task;
-  }
+  } */
 
   const [taskList, setTaskList] = useState<Task[]>([]);
   
-  function updateTaskList(newTask: Task){ 
+  function createTaskInList(newTask: Task){ 
     console.log('Updated task arguments:',arguments)
     const newTaskList=[...taskList]     // creating a copy of taskList[]     
-    newTaskList.push(newTask)           // adding the new taks into this copy
+    newTaskList.push(newTask)           // adding the new taks into this copy - creates a new task
     setTaskList(newTaskList)            //putting the values of this extended copy into the original task list
   }
   console.log('Updated task list:', taskList)
+
+  function updateTaskList(modifiedTask: Task, index: number){
+    const copiedTaskList=[...taskList] 
+    copiedTaskList[index]= modifiedTask
+    setTaskList(copiedTaskList) 
+  }
   
 
   return (
@@ -75,7 +81,7 @@ function App() {
 
       <TaskCreator 
           /* onClick={updateUserInputs}  */ 
-          onClick={updateTaskList}     
+          onClick={createTaskInList}     
           />
 
         <h2>
@@ -92,7 +98,10 @@ function App() {
               >{taskList.map((eachArrayElement, index)=> 
               <li key={index}> 
                 <label>
-                  <MyCheckbox/>
+                  <MyCheckbox
+                    checkedValue={eachArrayElement.checked}
+                    clickHandler={(newCheckedValue: boolean) => updateTaskList({... eachArrayElement, checked: newCheckedValue }, index) }
+                  />
                   {eachArrayElement.inputs}
                 </label> 
               </li>)}
@@ -164,7 +173,7 @@ function App() {
         <h2>
         4. Component: MyCheckbox
       </h2>
-        <MyCheckbox/>
+        {/* <MyCheckbox/> */}
      
      
      </div> {/* space before the single components */}    

@@ -11,7 +11,7 @@ interface TaskCreatorProps {
   }
 
   
-function TaskCreator({ onClick}: TaskCreatorProps) {
+function TaskCreator({ onClick }: TaskCreatorProps) {
 const [taskTextValue_inTC, storeTaskTextValue_inTC] = useState(''); //needed for the textfield
 
 
