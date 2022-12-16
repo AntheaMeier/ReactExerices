@@ -8,7 +8,7 @@ import { MyAddButton } from './components/MyAddButton';
 import { MyCheckbox } from './components/MyCheckbox';
 
 
-// test to push via git
+//my_checkbox branch
 
 //interface to be used in the hook for the taskList with objects Array
 export interface Task {
@@ -44,9 +44,9 @@ function App() {
   for creating an array full of task objects containing a string and a boolean */
   
 
-  function createTask(task: Task){
+  /* function createTask(task: Task){
     return task;
-  }
+  } */
 
   const [taskList, setTaskList] = useState<Task[]>([]);
   
@@ -92,7 +92,8 @@ function App() {
               >{taskList.map((eachArrayElement, index)=> 
               <li key={index}> 
                 <label>
-                  <MyCheckbox/>
+                  <MyCheckbox
+                  checked={eachArrayElement.checked}/>
                   {eachArrayElement.inputs}
                 </label> 
               </li>)}
