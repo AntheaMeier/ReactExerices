@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import { Task } from '../App';
 
 interface MyCheckboxProps {
-  /* checked: (arg: boolean ) => void */
-  checked: boolean
+  
+  clickHandler: (arg: boolean) => void
+  checkedValue: boolean
+  
   }
 
-function MyCheckbox({ checked }: MyCheckboxProps) { 
+function MyCheckbox({ clickHandler, checkedValue }: MyCheckboxProps) { 
 
-  const [taskBooleanValue, storeTaskBooleanValue] = useState(false);
+  
   return (
       <input
       type="checkbox"
-      checked={taskBooleanValue}
+      checked={checkedValue}
+      onChange={(event)=>{ // event is a listener activated by onChange, creates a call back function
+        clickHandler(event.target.checked)
+      }}
       
        />  
     );
