@@ -1,10 +1,10 @@
 
-interface MyTextfield1Props {
+interface MyTextfieldProps {
   valueProp: string, 
   updateFnProp: (arg: string) => void
 }
 
-function MyTextfield1({valueProp, updateFnProp}: MyTextfield1Props) {
+function MyTextfield({valueProp, updateFnProp}: MyTextfieldProps) {
 
   return (
     <div>
@@ -20,4 +20,4 @@ function MyTextfield1({valueProp, updateFnProp}: MyTextfield1Props) {
   );
 }
 
-export {MyTextfield1}
+export {MyTextfield}

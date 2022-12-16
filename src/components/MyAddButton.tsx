@@ -1,15 +1,15 @@
 
 interface MyAddButtonProps {
     label: string, 
-    onClick: (arg: string) => void,
+    clickHandler: () => void,
   
 }
   
-function MyAddButton({label, onClick}: MyAddButtonProps) { 
+function MyAddButton({label, clickHandler}: MyAddButtonProps) { 
   return (
     <div>
       <button
-          onClick = {() => onClick('')} // here a target would be the button, which has no value(input) beside the lable text
+          onClick = {() => clickHandler()} 
       >{label}</button>
         
     </div>
