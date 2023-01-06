@@ -23,8 +23,19 @@ function App() {
     const extendedTaskList=[...taskList]     // creating a shallow copy of taskList[]     
     extendedTaskList.push(newTask)           // adding the new taks into this copy - creates a new task
     setTaskList(extendedTaskList)            // storing in taskList the added task
+    
+    let taskListForLS = taskList;
+    window.localStorage.setItem('taskList', JSON.stringify(taskListForLS)); // stores taskList in the local storage
+    
+    
+    let storedTaskList = localStorage.getItem("taskListForLS"); // new array to get the string array from the LS
+    taskListForLS = JSON.parse(storedTaskList || "[]");  // to unstringify the array
+    console.log('Local Storage', taskListForLS)
   }
   console.log('Shows taskList after adding a new task', taskList)
+  
+
+  
 
   //for changing the boolean value by checking or unchecking
   function updateCheckedValue(updatedTask: Task, index: number){
@@ -32,7 +43,7 @@ function App() {
     updatedTaskList[index]= updatedTask  // put the updatedObject value from the parameter into the index passed through the parameter
     setTaskList(updatedTaskList)      // storing in taskList the new checkedValue of the updated task
   }
-  console.log('Shows taskList after changing checks:', taskList)
+  console.log('Shows taskList after changing a checked value:', taskList)
   
 
   return (
