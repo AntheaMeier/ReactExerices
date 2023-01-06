@@ -2,20 +2,20 @@ import { useState } from 'react';
 
 interface MyCheckboxProps {
   
-  checkboxValueProp: boolean
-  checkboxClickHandlerProp: (arg: boolean) => void
+  checked: boolean
+  onChangeHandler: (arg: boolean) => void
   
   }
 
-function MyCheckbox({ checkboxClickHandlerProp, checkboxValueProp }: MyCheckboxProps) { 
+function MyCheckbox({ onChangeHandler, checked }: MyCheckboxProps) { 
 
   
   return (
       <input
       type="checkbox"
-      checked={checkboxValueProp}
+      checked={checked}
       onChange={(event)=>{ // event is a listener activated by onChange, creates a call back function
-        checkboxClickHandlerProp(event.target.checked)
+        onChangeHandler(event.target.checked)
 
         console.log(event.target.checked)
       }}

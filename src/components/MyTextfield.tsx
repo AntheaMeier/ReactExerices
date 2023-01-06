@@ -1,19 +1,19 @@
 
 interface MyTextfieldProps {
-  textfieldInputProp: string, 
-  textfieldUpdateFnProp: (arg: string) => void
+  value: string, 
+  onChangeHandler: (arg: string) => void
 }
 
-function MyTextfield({textfieldInputProp, textfieldUpdateFnProp}: MyTextfieldProps) {
+function MyTextfield({value, onChangeHandler}: MyTextfieldProps) {
 
   return (
     <div>
       <input 
           placeholder= "type new task"
           type="text" 
-          value={textfieldInputProp}
+          value={value}
           onChange={(event)=>{
-            textfieldUpdateFnProp(event.target.value)
+            onChangeHandler(event.target.value)
             
             console.log(event.target.value)
           }}

@@ -1,16 +1,16 @@
 
 interface MyAddButtonProps {
-  buttonLabelProp: string, 
-  buttonClickHandlerProp: () => void,
+  label: string, 
+  clickHandler: () => void,
   
 }
   
-function MyAddButton({buttonLabelProp, buttonClickHandlerProp}: MyAddButtonProps) { 
+function MyAddButton({label, clickHandler}: MyAddButtonProps) { 
   return (
     <div>
       <button
-          onClick = {() => buttonClickHandlerProp()} 
-      >{buttonLabelProp}</button>
+          onClick = {() => clickHandler()} 
+      >{label}</button>
         
     </div>
       
