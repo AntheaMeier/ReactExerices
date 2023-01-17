@@ -24,13 +24,22 @@ function App() {
     extendedTaskList.push(newTask)           // adding the new taks into this copy - creates a new task
     setTaskList(extendedTaskList)            // storing in taskList the added task
     
-    let taskListForLS = taskList;
-    window.localStorage.setItem('taskList', JSON.stringify(taskListForLS)); // stores taskList in the local storage
+    //to show the stringified Array - doesn't work
+    /* const jsonTaskList = JSON.stringify(taskList)
+    console.log('Showing the stringified Array',jsonTaskList) */
+
+    window.localStorage.setItem('taskListKey', JSON.stringify(taskList)); // stores taskList in the local storage  in the shape fo strings
     
-    
-    let storedTaskList = localStorage.getItem("taskListForLS"); // new array to get the string array from the LS
-    taskListForLS = JSON.parse(storedTaskList || "[]");  // to unstringify the array
-    console.log('Local Storage', taskListForLS)
+    /* const taskListFromLS = localStorage.getItem("taskListKey");  */
+    // to get the stringified array from the LS
+    /* console.log('Local Storage: ', taskListFromLS)  */
+    //display array of strings on console
+
+    window.localStorage.getItem(JSON.parse(JSON.stringify(taskList)));
+
+
+
+
   }
   console.log('Shows taskList after adding a new task', taskList)
   
