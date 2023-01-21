@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { TaskCreator } from './components/TaskCreator';
 import { MyCheckbox } from './components/MyCheckbox';
@@ -15,30 +15,33 @@ export interface Task {
 
 function App() {
 
-  const [taskList, setTaskList] = useState<Task[]>([]);
+  const [taskList, setTaskList] = useState<Task[]>(() => {
+    const savedTaskList = localStorage.getItem('taskListKey');
+    const parsedTaskList = JSON.parse(savedTaskList || '{}');
+   return parsedTaskList || '{}';
+   });
   
   //for adding new tasks
   function addNewTask(newTask: Task){ 
     console.log('shows the new task added to MyChecklist using the addButton:', arguments)
     const extendedTaskList=[...taskList]     // creating a shallow copy of taskList[]     
     extendedTaskList.push(newTask)           // adding the new taks into this copy - creates a new task
-    setTaskList(extendedTaskList)            // storing in taskList the added task
+    setTaskList(extendedTaskList)            // results in a new "taskList" with the added newTask
     
-    //to show the stringified Array - doesn't work
-    /* const jsonTaskList = JSON.stringify(taskList)
-    console.log('Showing the stringified Array',jsonTaskList) */
 
-    window.localStorage.setItem('taskListKey', JSON.stringify(taskList)); // stores taskList in the local storage  in the shape fo strings
+    //to convert taskList into a stringified Array 
+    const stringifiedTaskList = JSON.stringify(extendedTaskList)
+  
+    //to store the stringified Array 
+    localStorage.setItem('taskListKey', stringifiedTaskList); 
+    /* console.log('Showing the stringified object:', stringifiedTaskList) */
     
-    /* const taskListFromLS = localStorage.getItem("taskListKey");  */
-    // to get the stringified array from the LS
-    /* console.log('Local Storage: ', taskListFromLS)  */
-    //display array of strings on console
-
-    window.localStorage.getItem(JSON.parse(JSON.stringify(taskList)));
-
-
-
+    // to get the stringified array from the LS back
+    const getStringifiedTaskList = localStorage.getItem('taskListKey');
+    
+    // to convert in back into a unstringified array 
+    const unstringifiedTaskList = JSON.parse(getStringifiedTaskList || '{}');
+    /* console.log('Showing the unstringified object:', unstringifiedTaskList) */
 
   }
   console.log('Shows taskList after adding a new task', taskList)
