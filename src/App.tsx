@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import { TaskCreator } from './components/TaskCreator';
 import { MyCheckbox } from './components/MyCheckbox';
+import { parseJSONfromLocalStorage } from './helpers';
 
 
 //Clean_up after discussing all variable names with Maja
@@ -16,9 +17,9 @@ export interface Task {
 function App() {
 
   const [taskList, setTaskList] = useState<Task[]>(() => {
-    const savedTaskList = localStorage.getItem('taskListKey');
-    const parsedTaskList = JSON.parse(savedTaskList || '{}');
-   return parsedTaskList || '{}';
+      const savedTaskList = localStorage.getItem('taskList');
+      const parsedTaskList = parseJSONfromLocalStorage(savedTaskList || '[]');
+      return parsedTaskList;
    });
   
   //for adding new tasks
@@ -29,24 +30,26 @@ function App() {
     setTaskList(extendedTaskList)            // results in a new "taskList" with the added newTask
     
 
-    //to convert taskList into a stringified Array 
+    //to convert into a stringified Array 
     const stringifiedTaskList = JSON.stringify(extendedTaskList)
   
-    //to store the stringified Array 
-    localStorage.setItem('taskListKey', stringifiedTaskList); 
+    //to store the stringified array 
+    localStorage.setItem('taskList', stringifiedTaskList); 
     /* console.log('Showing the stringified object:', stringifiedTaskList) */
     
-    // to get the stringified array from the LS back
-    const getStringifiedTaskList = localStorage.getItem('taskListKey');
     
-    // to convert in back into a unstringified array 
-    const unstringifiedTaskList = JSON.parse(getStringifiedTaskList || '{}');
+
+    
+    // to convert in back into a unstringified array - I dont need this here as it happens in the hook....and now the helper.ts instead
+    /* const unstringifiedTaskList = JSON.parse(getStringifiedTaskList || '[]'); */
     /* console.log('Showing the unstringified object:', unstringifiedTaskList) */
+    
 
   }
   console.log('Shows taskList after adding a new task', taskList)
   
-
+  
+  
   
 
   //for changing the boolean value by checking or unchecking
@@ -54,6 +57,16 @@ function App() {
     const updatedTaskList=[...taskList] // creating a shallow copy of taskList[] (internatlly are still the same references, only the ref to the array changed)
     updatedTaskList[index]= updatedTask  // put the updatedObject value from the parameter into the index passed through the parameter
     setTaskList(updatedTaskList)      // storing in taskList the new checkedValue of the updated task
+  
+     //to convert into a stringified array 
+     const stringifiedUpdatedTaskList = JSON.stringify(updatedTaskList)
+  
+     //to store the stringified array 
+     localStorage.setItem('taskList', stringifiedUpdatedTaskList); 
+     /* console.log('Showing the stringified object:', stringifiedUpdatedTaskList) */
+     
+  
+  
   }
   console.log('Shows taskList after changing a checked value:', taskList)
   

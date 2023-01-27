@@ -24,7 +24,7 @@ const [taskName, setTaskName] = useState('');
     
 
       <MyAddButton 
-        label='add new task'
+        button_title='add new task'
         clickHandler = {() =>  onClick({taskName: taskName, taskCheckedValue: false})} //extends the taskList array with the latest taskName and setting the initial boolean to false
         />                                                                              
 
