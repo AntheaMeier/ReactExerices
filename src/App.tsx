@@ -5,9 +5,9 @@ import { MyCheckbox } from './components/MyCheckbox';
 import { parseJSONfromLocalStorage } from './helpers';
 
 
-//Clean_up after discussing all variable names with Maja
+//saving data in the local storage works with the helper.ts
 
-//interface to be used in the hook for the taskList array full of objects
+//interface to be used in the hook for the taskList array 
 export interface Task {
   taskName: string;
   taskCheckedValue: boolean;
@@ -42,7 +42,7 @@ function App() {
     
     // to convert in back into a unstringified array - I dont need this here as it happens in the hook....and now the helper.ts instead
     /* const unstringifiedTaskList = JSON.parse(getStringifiedTaskList || '[]'); */
-    /* console.log('Showing the unstringified object:', unstringifiedTaskList) */
+   
     
 
   }
@@ -108,7 +108,7 @@ function App() {
 
         <span style={{border:'2px solid white', 
                     color: 'white',
-                    textAlign:'center', 
+                    textAlign:'left', 
                     marginTop: '50px',
                     padding: '5%'}}>
         
@@ -128,16 +128,15 @@ function App() {
         - MyTextField and<br/>
         - MyAddButton, <br/>
         <br/>
-        which both use the array of objects <br/>
-        called taskList declared in app.tsx.<br/>
+        which both use the array of objects called taskList declared in app.tsx.<br/>
         <br/>
         
         <br/>
-        All coponents starting with "My" do not declare own variables and only use their props. <br/>
-        Which means they are stateless and are called pure components. Only TaskCreator uses a <br/>
+        All coponents starting with "My" do not declare own variables and only use their props. 
+        Which means they are stateless and are called pure components. Only TaskCreator uses a 
         Hook to declare a taskName value and a set method for the value prop of MyTextfield. <br/>
         <br/>
-        MyAddButton called in TaskCreator uses this taskName Value just used by MyTextfield within the <br/>
+        MyAddButton called in TaskCreator uses this taskName Value just used by MyTextfield within the
         TaskCreator und sets the initial boolean value fo the interface type Task to false.<br/>
         <br/>
       
