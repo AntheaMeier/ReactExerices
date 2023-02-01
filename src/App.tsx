@@ -2,11 +2,12 @@ import { useState } from 'react';
 import './App.css';
 import { TaskCreator } from './components/TaskCreator';
 import { MyCheckbox } from './components/MyCheckbox';
+import { parseJSONfromLocalStorage } from './helpers';
 
 
-//Clean_up after discussing all variable names with Maja
+//saving data in the local storage works with the helper.ts
 
-//interface to be used in the hook for the taskList array full of objects
+//interface to be used in the hook for the taskList array 
 export interface Task {
   taskName: string;
   taskCheckedValue: boolean;
@@ -15,26 +16,40 @@ export interface Task {
 
 function App() {
 
-  const [taskList, setTaskList] = useState<Task[]>([]);
+  const [taskList, setTaskList] = useState<Task[]>(() => {
+      const savedTaskList = localStorage.getItem('taskList');
+      const parsedTaskList = parseJSONfromLocalStorage(savedTaskList || '[]');
+      return parsedTaskList;
+   });
   
   //for adding new tasks
   function addNewTask(newTask: Task){ 
     console.log('shows the new task added to MyChecklist using the addButton:', arguments)
     const extendedTaskList=[...taskList]     // creating a shallow copy of taskList[]     
     extendedTaskList.push(newTask)           // adding the new taks into this copy - creates a new task
-    setTaskList(extendedTaskList)            // storing in taskList the added task
+    setTaskList(extendedTaskList)            // results in a new "taskList" with the added newTask
     
-    let taskListForLS = taskList;
-    window.localStorage.setItem('taskList', JSON.stringify(taskListForLS)); // stores taskList in the local storage
+
+    //to convert into a stringified Array 
+    const stringifiedTaskList = JSON.stringify(extendedTaskList)
+  
+    //to store the stringified array 
+    localStorage.setItem('taskList', stringifiedTaskList); 
+    /* console.log('Showing the stringified object:', stringifiedTaskList) */
     
     
-    let storedTaskList = localStorage.getItem("taskListForLS"); // new array to get the string array from the LS
-    taskListForLS = JSON.parse(storedTaskList || "[]");  // to unstringify the array
-    console.log('Local Storage', taskListForLS)
+
+    
+    // to convert in back into a unstringified array - I dont need this here as it happens in the hook....and now the helper.ts instead
+    /* const unstringifiedTaskList = JSON.parse(getStringifiedTaskList || '[]'); */
+   
+    
+
   }
   console.log('Shows taskList after adding a new task', taskList)
   
-
+  
+  
   
 
   //for changing the boolean value by checking or unchecking
@@ -42,6 +57,16 @@ function App() {
     const updatedTaskList=[...taskList] // creating a shallow copy of taskList[] (internatlly are still the same references, only the ref to the array changed)
     updatedTaskList[index]= updatedTask  // put the updatedObject value from the parameter into the index passed through the parameter
     setTaskList(updatedTaskList)      // storing in taskList the new checkedValue of the updated task
+  
+     //to convert into a stringified array 
+     const stringifiedUpdatedTaskList = JSON.stringify(updatedTaskList)
+  
+     //to store the stringified array 
+     localStorage.setItem('taskList', stringifiedUpdatedTaskList); 
+     /* console.log('Showing the stringified object:', stringifiedUpdatedTaskList) */
+     
+  
+  
   }
   console.log('Shows taskList after changing a checked value:', taskList)
   
@@ -83,7 +108,7 @@ function App() {
 
         <span style={{border:'2px solid white', 
                     color: 'white',
-                    textAlign:'center', 
+                    textAlign:'left', 
                     marginTop: '50px',
                     padding: '5%'}}>
         
@@ -103,16 +128,15 @@ function App() {
         - MyTextField and<br/>
         - MyAddButton, <br/>
         <br/>
-        which both use the array of objects <br/>
-        called taskList declared in app.tsx.<br/>
+        which both use the array of objects called taskList declared in app.tsx.<br/>
         <br/>
         
         <br/>
-        All coponents starting with "My" do not declare own variables and only use their props. <br/>
-        Which means they are stateless and are called pure components. Only TaskCreator uses a <br/>
+        All coponents starting with "My" do not declare own variables and only use their props. 
+        Which means they are stateless and are called pure components. Only TaskCreator uses a 
         Hook to declare a taskName value and a set method for the value prop of MyTextfield. <br/>
         <br/>
-        MyAddButton called in TaskCreator uses this taskName Value just used by MyTextfield within the <br/>
+        MyAddButton called in TaskCreator uses this taskName Value just used by MyTextfield within the
         TaskCreator und sets the initial boolean value fo the interface type Task to false.<br/>
         <br/>
       

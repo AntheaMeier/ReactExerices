@@ -1,11 +1,11 @@
 
-interface MyAddButtonProps {
+interface MyDeleteButtonProps {
   button_title: string, 
   clickHandler: () => void,
   
 }
   
-function MyAddButton({button_title, clickHandler}: MyAddButtonProps) { 
+function MyDeleteButton({button_title, clickHandler}: MyDeleteButtonProps) { 
   return (
     <div>
       <button
@@ -17,4 +17,4 @@ function MyAddButton({button_title, clickHandler}: MyAddButtonProps) {
     );
   }
 
-  export {MyAddButton}
+  export {MyDeleteButton}
