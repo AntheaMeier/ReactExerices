@@ -10,7 +10,7 @@ interface TaskCreatorProps {
   }
  
 function TaskCreator({ onClick }: TaskCreatorProps) {
-const [taskInputValue, storeTaskInputValue] = useState(''); 
+const [taskName, setTaskName] = useState(''); 
 
 
   return (
@@ -18,14 +18,14 @@ const [taskInputValue, storeTaskInputValue] = useState('');
     style={{display:'inline-flex'}}
     >
       <MyTextfield 
-        textfieldInput={taskInputValue}
-        textfieldUpdateFn={storeTaskInputValue} 
+        value={taskName}
+        onChangeHandler={setTaskName} 
         />
     
 
       <MyAddButton 
-        buttonLabel='add new task'
-        buttonClickHandler = {() =>  onClick({inputs:taskInputValue, checked: false})} //extends the userInput array with the latest input and seeting the boolean to false initially
+        label='add new task'
+        clickHandler = {() =>  onClick({taskName: taskName, taskCheckedValue: false})} //extends the taskList array with the latest taskName and setting the initial boolean to false
         />                                                                              
 
 
