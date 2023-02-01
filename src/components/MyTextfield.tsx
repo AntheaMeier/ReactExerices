@@ -9,7 +9,7 @@ function MyTextfield({value, onChangeHandler}: MyTextfieldProps) {
   return (
     <div>
       <input 
-          placeholder= "type new task"
+          placeholder= "What is your next task?"
           type="text" 
           value={value}
           onChange={(event)=>{
