@@ -1,25 +1,22 @@
 import React from 'react';
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MyAddButton } from '../MyAddButton';
 
 describe("MyAddButton component", () => {
     it("should render MyAddButton component correctly", () => {
+        
+        const clickHandler = jest.fn();
+        
         render(<MyAddButton 
-            button_title={''} 
-            clickHandler={function (): void {
-            throw new Error('Function not implemented.');
-            } } />);
-        const element = screen.getByRole('button');
+            button_title={'abc'} 
+            clickHandler={clickHandler} />);
+        const element = screen.getByRole('button', {name:'abc'}); // to get the DOM element of the role button
         expect (element).toBeInTheDocument();
+        expect (clickHandler).toHaveBeenCalledTimes(0);
+
+        fireEvent.click(element);
+    
+        expect (clickHandler).toHaveBeenCalledTimes(1);
     });
 });
 
-it("should do something when clicked", () => {
-    render(<MyAddButton 
-        button_title={''} 
-        clickHandler={function (): void {
-        throw new Error('Function not implemented.');
-        } }  />);
-    const buttonElement = screen.getByRole("button");
-    MouseEvent.click(buttonElement);
-});
