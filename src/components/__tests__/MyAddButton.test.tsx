@@ -12,10 +12,9 @@ describe("MyAddButton component", () => {
             clickHandler={clickHandler} />);
         const element = screen.getByRole('button', {name:'abc'}); // to get the DOM element of the role button
         expect (element).toBeInTheDocument();
+        
         expect (clickHandler).toHaveBeenCalledTimes(0);
-
         fireEvent.click(element);
-    
         expect (clickHandler).toHaveBeenCalledTimes(1);
     });
 });
