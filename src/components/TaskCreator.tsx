@@ -12,6 +12,13 @@ interface TaskCreatorProps {
 function TaskCreator({ onClick }: TaskCreatorProps) {
 const [taskName, setTaskName] = useState(''); 
 
+const handleClick = () => {
+  if (taskName) {
+    onClick({taskName: taskName, taskCheckedValue: false}); // pass the taskName and initial checked value to the onClick handler
+    setTaskName(''); // reset the text field value "taskName" after adding a task
+  }
+};
+
 
   return (
     <div
@@ -25,12 +32,12 @@ const [taskName, setTaskName] = useState('');
 
       <MyAddButton 
         button_title='add new task'
-        clickHandler = {() =>  onClick({taskName: taskName, taskCheckedValue: false})} //extends the taskList array with the latest taskName and setting the initial boolean to false
+        //new to fix the integration test:
+        clickHandler={handleClick}
+        /* it was before fixing:
+        clickHandler = {() =>  onClick({taskName: taskName, taskCheckedValue: false})}  *///extends the taskList array with the latest taskName and setting the initial boolean to false
+        
         />                                                                              
-
-
-      
-      
       </div>
     );
   }

@@ -38,9 +38,7 @@ it('should display input value', async () => {
     expect(onChangeHandler).toBeCalledTimes(0);
     const textField = screen.getByPlaceholderText('What is your next task?'); 
     await user.type(textField,'b')
-    /* expect(textField).toHaveValue('b') */
+    expect(textField).toHaveValue('ab')
     expect(onChangeHandler).toBeCalledTimes(1);
-
-
 
   });

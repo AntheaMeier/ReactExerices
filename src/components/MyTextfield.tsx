@@ -14,7 +14,6 @@ function MyTextfield({value, onChangeHandler}: MyTextfieldProps) {
           value={value}
           onChange={(event)=>{
             onChangeHandler(event.target.value)
-            
             console.log(event.target.value)
           }}
       />

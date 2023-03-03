@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from '@testing-library/user-event'; 
 import { TaskCreator } from '../TaskCreator';
 
@@ -8,41 +8,34 @@ describe("TaskCreator component", () => {
         const clickHandler = jest.fn();
         const user = userEvent.setup();
         
-        
         render(<TaskCreator 
             onClick={clickHandler} 
             />);
 
+        // to check whether myTextfield exists -> works
         const elementTextField = screen.getByPlaceholderText('What is your next task?');
         expect (elementTextField).toBeInTheDocument();
-
-        const elementButton = screen.getByRole('button'); // to get the DOM element of the role button
+        
+        // to mock typing 'testValue' into the Textfield -> works
+        await user.type(elementTextField,'testValue');
+        expect(elementTextField).toHaveValue('testValue')
+        
+        // to check whether myButton exists -> works
+        const elementButton = screen.getByRole('button', { name: 'add new task' }); 
         expect (elementButton).toBeInTheDocument();
 
-        fireEvent.change(elementTextField, {target: { value: 'aaa' }});
-
+        // to check whether clickHandler has been called when clicking the button -> works
         await user.click(elementButton);
-        expect(elementTextField).toHaveValue('aaa')
-        /* expect (clickHandler).toHaveBeenCalledWith('A'); */
         expect (clickHandler).toHaveBeenCalledTimes(1);
-        
-        
-        
-        
-        
-        /* const elementTextfield = screen.getByRole( 'textbox'); // to get the DOM element of the role textbox
-        expect (elementTextfield).toBeInTheDocument();
+     
+        // to check whether the right value of the Textfield has been passed -> works
+        expect (clickHandler).toHaveBeenCalledWith({
+            taskName: 'testValue',
+            taskCheckedValue: false,
+          }); 
 
-        const elementButton = screen.getByRole('button'); // to get the DOM element of the role button
-        expect (elementButton).toBeInTheDocument();
-
-        
-        expect (clickHandler).toHaveBeenCalledTimes(0);
-        await user.click(elementButton);
-        expect (clickHandler).toHaveBeenCalledTimes(1); */
-        
-        
-        
+        // to check whether the Textfield VALUE has been emptied afterwards -> works
+        expect(elementTextField).toHaveValue('')
     });
 });
 
