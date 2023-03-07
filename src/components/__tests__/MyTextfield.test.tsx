@@ -37,8 +37,14 @@ it('should display input value', async () => {
     
     expect(onChangeHandler).toBeCalledTimes(0);
     const textField = screen.getByPlaceholderText('What is your next task?'); 
+    
+    // mock tying a letter
     await user.type(textField,'b')
-    expect(textField).toHaveValue('ab')
+
+    //check whether the onChangeHandler has been called
     expect(onChangeHandler).toBeCalledTimes(1);
+
+    //check whether the right value has been passed
+    expect(onChangeHandler).toHaveBeenCalledWith('ab'); 
 
   });

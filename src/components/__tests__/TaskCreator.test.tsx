@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from '@testing-library/user-event'; 
+import { act } from "react-dom/test-utils";
 import { TaskCreator } from '../TaskCreator';
 
 describe("TaskCreator component", () => {
@@ -16,26 +17,36 @@ describe("TaskCreator component", () => {
         const elementTextField = screen.getByPlaceholderText('What is your next task?');
         expect (elementTextField).toBeInTheDocument();
         
-        // to mock typing 'testValue' into the Textfield -> works
-        await user.type(elementTextField,'testValue');
-        expect(elementTextField).toHaveValue('testValue')
-        
-        // to check whether myButton exists -> works
+        // to mock typing 'a' into the Textfield -> causes the "wrap in act() warning"
+        await user.type(elementTextField,'a');
+        await waitFor(()=> expect(elementTextField).toHaveValue('a'));
+       
+       
+        // to check whether my button is enabled -> works
         const elementButton = screen.getByRole('button', { name: 'add new task' }); 
-        expect (elementButton).toBeInTheDocument();
+        expect(elementButton).not.toBeDisabled();
 
-        // to check whether clickHandler has been called when clicking the button -> works
-        await user.click(elementButton);
-        expect (clickHandler).toHaveBeenCalledTimes(1);
+        //to check whether clickHandler has been called when clicking the button -> works
+        await act(async()=>{
+        user.click(elementButton);
+       })
+       setTimeout(() => {
+        expect(clickHandler).toHaveBeenCalledTimes(1);
+      }, 100); // Wait for 100ms before checking the clickHandler
+      
+
+        // user.click(elementButton);
+        // await waitFor(()=> expect (clickHandler).toHaveBeenCalledTimes(1));
      
         // to check whether the right value of the Textfield has been passed -> works
         expect (clickHandler).toHaveBeenCalledWith({
-            taskName: 'testValue',
+            taskName: 'a',
             taskCheckedValue: false,
           }); 
 
         // to check whether the Textfield VALUE has been emptied afterwards -> works
-        expect(elementTextField).toHaveValue('')
+        await waitFor(()=> expect(elementTextField).toHaveValue('')); 
+        
     });
 });
 

@@ -19,6 +19,7 @@ const handleClick = () => {
   }
 };
 
+const isButtonDisabled = taskName.length === 0;
 
   return (
     <div
@@ -34,6 +35,7 @@ const handleClick = () => {
         button_title='add new task'
         //new to fix the integration test:
         clickHandler={handleClick}
+        disabled={isButtonDisabled} // disables the button when taskName is empty
         /* it was before fixing:
         clickHandler = {() =>  onClick({taskName: taskName, taskCheckedValue: false})}  *///extends the taskList array with the latest taskName and setting the initial boolean to false
         
